@@ -1,3 +1,5 @@
+//Friend list information; Friends API
+
 var friends = [ {
 	"name" : "Bad Luck Brian",
 	"photo" : "https://sites.google.com/a/umich.edu/the-rhetoric-of-memes/_/rsrc/1386351632076/home/bad-luck-brian/Firetruck-Bad-Luck-Brian.jpg",
