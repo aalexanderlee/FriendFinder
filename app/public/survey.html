@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Friend Finder - Survey</title>
+	<title>Friend Finder | My Survey</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="public/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -13,7 +13,7 @@
 		<h1>Survey Questions</h1><br>
 		<hr>
 		<form method="POST" action="/api/friends">
-			<h3><strong>About You</strong></h3>
+			<h3><strong>About Me</strong></h3>
 			<fieldset class="form-group">
 				<label for="name">Name (Required)</label>
 				<input type="text" class="form-control" placeholder="Your Name" id="name" name="name" required>
@@ -26,7 +26,7 @@
 
 			<h4><strong>Question One:</strong></h4>
 			<fieldset class="form-group">
-				<label for="questionOne">Chipotle burritos are the best!</label>
+				<label for="questionOne">Chipotle burritos are the best!...If you enjoy chronic indigestion.</label>
 				<br>
 				<div class="col-md-4">
 					<select class="form-control" id="questionOne" name="scores[0]">
@@ -71,7 +71,7 @@
 
 			<h4><strong>Question Four:</strong></h4>
 			<fieldset class="form-group">
-				<label for="questionFour">Dive bars are awesome.</label>
+				<label for="questionFour">Dive bars are awesome. The more rundown the better.</label>
 				<br>
 				<div class="col-md-4">
 					<select class="form-control" id="questionFour" name="scores[3]">
@@ -86,7 +86,7 @@
 
 			<h4><strong>Question Five:</strong></h4>
 			<fieldset class="form-group">
-				<label for="questionFive">I like long walks on the beach...alone with my thoughts.</label>
+				<label for="questionFive">I like long walks on the beach...alone.</label>
 				<br>
 				<div class="col-md-4">
 					<select class="form-control" id="questionFive" name="scores[4]">
@@ -161,7 +161,7 @@
 
 			<h4><strong>Question Ten:</strong></h4>
 			<fieldset class="form-group">
-				<label for="questionTen">I'm always laughing at my own jokes when I hear crickets.</label>
+				<label for="questionTen">I'm always laughing at my own jokes because no one else around has the same sense of humor. Forever alone.</label>
 				<br>
 				<div class="col-md-4">
 					<select class="form-control" id="questionTen" name="scores[9]">
@@ -180,11 +180,40 @@
 	<a href="/api/friends">List of Friends</a> 
 </div>
 
-
+<div id="friendModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">X</button>
+				<h2 class="modal-title">Your Match FOR LIFE!!!</h2>
+			</div>
+			<div class="modal-body">
+				<h2 id="friendName"></h2>
+				<img id="friendImage" src="https://s-media-cache-ak0.pinimg.com/originals/d1/92/15/d192152c72b24fe432375fd59959e337.jpg" width=500px alt="Your Friend">
+			</div>
+		</div>
+	</div>
+</div>
 			
-<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.js"</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"</script>
+
 <script type="text/javascript">
+	$('#submit').on("click", function() {
+		var userInput = {
+			name: $('#name').val().trim(),
+			photo: $('#photo').val().trim(),
+			scores: [$('#questionOne').val().trim(), $('#questionTwo').val().trim(), $('#questionThree').val().trim(), $('#questionFour').val().trim(), $('#questionFive').val().trim(), $('#questionSix').val().trim(), $('#questionSeven').val().trim(), $('#questionEight').val().trim(), $('#questionNine').val().trim(), $('#questionTen').val().trim()]
+		}
+		var currentURL = window.location.origin;
+		$.post(currentURL + '/api/friends', userInput, function(data) {
+			$("#friendName").text(data.name);
+			$("#friendImage").attr("src", data.photo);
+			$("#friendModal").modal("show");
+		});
+		return false;
+	});
 </script>
+
 </body>
 </html>
