@@ -38,6 +38,21 @@ module.exports = function (app) {
 			diffArr[i] = diffTotal;
 		}
 
+		var friendNumber = diffArr[0];
+		var friendIndex = 0;
+
+		for(var i = 1; i < diffArr.length; i++) {
+			if(diffArr[i] < friendNumber) {
+				friendNumber = diffArr[i];
+				friendIndex = i;
+			}
+		}
+
+		friendArr.push(user);
+
+		res.json(friendArr[friendIndex]);
+	})
+}
 
 
 
