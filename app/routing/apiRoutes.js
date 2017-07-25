@@ -24,4 +24,21 @@ module.exports = function (app) {
 				user.scores[i] = parseInt(user.scores[i]); //change 2,3, or 4 to an int
 			}
 		}
-		
+
+		var diffArr = []; //this will be the new .score for the user object in api
+
+		for(var i = 0; i < friendArr.length; i++) {
+			//var comparedFriend = friendArr[i];
+			var diffTotal = 0;
+			
+			for(var j = 0; j < friendArr[i].scores.length; j++) {
+				var diffScore = Math.abs(friendArr[i].scores[k] - user.scores[j]);
+				diffTotal += diffScore;
+			}
+			diffArr[i] = diffTotal;
+		}
+
+
+
+
+
